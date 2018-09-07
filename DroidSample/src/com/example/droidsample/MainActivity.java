@@ -2,6 +2,9 @@ package com.example.droidsample;
 
 import java.io.File;
 
+import com.example.droidsample.download.DownLoadListener;
+import com.example.droidsample.download.DownloadUtils;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Environment;
@@ -13,6 +16,8 @@ import android.widget.TextView;
 public class MainActivity extends Activity {
 	private TextView resultTv;
 	private Button loadApkBtn;
+	
+	String downloadurl = "https://raw.githubusercontent.com/sharkmabin/GroidPluginSame/master/DroidSample/assets/DeviceCommon.apk" ;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +40,21 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				FileUtils.createAiriSDKDir();
+				
+				DownloadUtils.downLoad(downloadurl, "DeviceCommon.apk",new DownLoadListener() {
+					
+					@Override
+					public void onSuccess(String path) {
+						// TODO Auto-generated method stub
+						resultTv.setText(path);
+					}
+					
+					@Override
+					public void onFail(String errorMessage) {
+						// TODO Auto-generated method stub
+						resultTv.setText(errorMessage);
+					}
+				});
 			}
 		});
 	}

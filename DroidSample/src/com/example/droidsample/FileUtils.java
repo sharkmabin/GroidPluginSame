@@ -10,15 +10,24 @@ import android.os.Environment;
  */
 public class FileUtils {
 
-	public static void createAiriSDKDir() {
-		String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "MA_AiriSDK";
-		LogUtil.e(path);
-		File destDir = new File(path);
-		if (!destDir.exists()) {
-			destDir.mkdirs();
-		}else {
-			LogUtil.e("~~~创建完成了");
+	public static String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "MA_AiriSDK";
+
+	public FileUtils() {
+		File file = new File(path);
+		if (!file.exists()) {
+			file.mkdirs();
 		}
+	}
+
+	/**
+	 * 创建一个文件
+	 * 
+	 * @param FileName
+	 *            文件名
+	 * @return
+	 */
+	public File createFile(String FileName) {
+		return new File(path, FileName);
 	}
 
 	// /**
